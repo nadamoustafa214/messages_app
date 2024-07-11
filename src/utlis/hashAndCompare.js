@@ -5,7 +5,7 @@ export const hash=({plainText,saltRound=process.env.SALT_ROUND}={})=>{
     return hashValue
 }
 
-export const compare=({plantext,hashValue}={})=>{
-    const match=bcrypt.compareSync(plantext,hashValue)
+export const compare=({plainText,hashValue}={})=>{
+    const match=bcrypt.compareSync(plainText,hashValue)
     return match
 }
