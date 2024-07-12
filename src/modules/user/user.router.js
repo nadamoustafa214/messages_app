@@ -6,4 +6,5 @@ const router=Router()
 router.post("/profile",auth,UC.profile)
 
 
+
 export default router
