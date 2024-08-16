@@ -1,9 +1,11 @@
 import {Router} from "express";
 import * as AC from "./controller/auth.js"
+import validation from './../../../src/middleware/validation.middleware.js'
+import * as validator from './../auth/user.validation.js'
 const router=Router()
 
-router.post("/signup",AC.signup)
-router.post("/login",AC.login)
+router.post("/signup",validation(validator.signUpSchema),AC.signup)
+router.post("/login",validation(validator.loginSchema),AC.login)
 
 
 
