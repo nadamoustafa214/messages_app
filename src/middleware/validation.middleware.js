@@ -4,19 +4,20 @@ export const validation=(schema)=>{
         const validationError=[]
         dataMethods.forEach(key=>{
              if(schema[key]){
-                const valiResult=schema[key].validate(req.body,{abortEarly:false})
+                const dataToValid=req[key]
+                const valiResult=schema[key].validate(dataToValid,{abortEarly:false})
               if(valiResult.error){
-                validationError.push(valiResult)
+                validationError.push(valiResult.error.details)
         }
     }
-})
+    })
         if(validationError.length>0){
-            return res.json({message:"validation error",validationError})
+            return res.status(400).json({message:"validation error",validationError})
         }
         else{
-                return    next()
-                }
+                return next()
             }
+    }
 }
 
 export default validation

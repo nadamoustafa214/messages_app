@@ -8,8 +8,8 @@ export const signUpSchema={
         age:joi.number().min(18).max(100),
         userName:joi.string().alphanum().required(),
         email:joi.string().email({minDomainSegments:2,tlds:{allow:['com']}}).required(),
-        password:joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-        cpassword:joi.ref("password"),
+        password:joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+        cpassword:joi.string().valid(joi.ref("password")).required(),
         gender:joi.array().valid('male','female'),
     }).required()
 }
