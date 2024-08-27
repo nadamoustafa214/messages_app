@@ -1,22 +1,22 @@
 import joi from 'joi'
-
+import { fields } from '../../middleware/validation.middleware.js'
 export const signUpSchema={
     body:joi.object({
         firstName:joi.string(),
         lastName:joi.string(),
         phone:joi.string(),
         age:joi.number().min(18).max(100),
-        userName:joi.string().alphanum().required(),
-        email:joi.string().email({minDomainSegments:2,tlds:{allow:['com']}}).required(),
-        password:joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
-        cpassword:joi.string().valid(joi.ref("password")).required(),
+        userName:fields.userName,
+        email:fields.email,
+        password:fields.password,
+        cpassword:fields.cpassword,
         gender:joi.array().valid('male','female'),
     }).required()
 }
 
 export const loginSchema={
     body:joi.object({
-        password:joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-        email:joi.string().email({minDomainSegments:2,tlds:{allow:['com']}}).required()
+        password:fields.password,
+        email:fields.email
     }).required()
 }

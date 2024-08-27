@@ -35,7 +35,10 @@ const userSchema=new Schema({
         type:Boolean,
         default:false
     },
-    profilePic:String
+    profilePic:String,
+    profilePicId:String,
+    covers:Array
+
 },{
     timestamps:true
 })
