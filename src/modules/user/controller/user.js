@@ -82,3 +82,11 @@ export const shareProfile=async(req,res,next)=>{
     }
     return res.status(200).json({message:'done',user})
 }
+
+export const deactiveAccount=async(req,res,next)=>{
+    const user=await userModel.findById(req.user._id)
+    if(!user){
+        return next(new Error(' not login agin ',{cause:400}))
+    }
+    
+}
