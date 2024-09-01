@@ -29,7 +29,7 @@ export const updateUser=async(req,res,next)=>{
         return res.send('invalid user please login again')
     }
     if(req.body.email){
-        confirmEmail()
+        return next(new Error("sorry you can't change email address"))
     }
     if(req.body.npassword){
         const match=compare({plainText:req.body.password,hashValue:user.password})
@@ -63,8 +63,6 @@ export const updateUser=async(req,res,next)=>{
 return res.json({message:"updated",user})
 }
 
-
-
 export const profilePic=async(req,res,next)=>{
     if(!req.file){
         return next(new Error('file is required'),{cause:400})
@@ -74,6 +72,7 @@ export const profilePic=async(req,res,next)=>{
     await cloudinary.uploader.destroy(user.profilePicId)
     return res.json({message:"done",user})
 }
+
 export const shareProfile=async(req,res,next)=>{
     const{id}=req.params
     const user=await userModel.findById(id).select('userName email age lastName firstName gender profilePic')
@@ -86,7 +85,18 @@ export const shareProfile=async(req,res,next)=>{
 export const deactiveAccount=async(req,res,next)=>{
     const user=await userModel.findById(req.user._id)
     if(!user){
-        return next(new Error(' not login agin ',{cause:400}))
+        return next(new Error(' not found plz login again ',{cause:400}))
     }
+    // console.log(user.statusAcc);
     
+    if(user.statusAcc==='active'){
+        user.statusAcc='deactive'
+        await user.save()
+    }
+return res.status(200).send(' deactivate successfully ,if you need to active login your account')
 }
+
+
+// export const deleteAccountForEver=async(req,res,next)=>{
+
+// }

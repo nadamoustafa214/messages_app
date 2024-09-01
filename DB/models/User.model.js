@@ -27,7 +27,13 @@ const userSchema=new Schema({
         type:String,
         default:"offline",
         enum:["offline","online","blocked"]
-    },role:{
+    },
+    statusAcc:{
+        type:String,
+        default:'active',
+        enum:['active','deactive','deleted']
+    },
+    role:{
         type:String,
         default:"user",
         enum:["admin","user"]

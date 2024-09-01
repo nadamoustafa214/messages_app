@@ -67,6 +67,10 @@ export  const login=async (req,res,next)=>{
 
         }
         const token=generateToken({payload:{id:user._id,isLoggedIn:true,role:user.role}})
+        if(user.statusAcc=='deactive'){
+            user.statusAcc='active'
+            await user.save()
+        }
         return res.status(StatusCodes.OK).json({message:"Done",token})
 }
 

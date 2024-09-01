@@ -13,6 +13,7 @@ router.put('/updateProfile',auth,fileUpload('',fileValidation.image).fields([
     { name: 'profilePicture', maxCount: 1 },
     { name: 'coverPicture', maxCount: 3 }
 ]),UC.updateUser)
+router.patch('/deactiveAcc',auth,UC.deactiveAccount)
 // router.patch('/profilePic',auth,fileUpload(fileValidation.image).single('image'),UC.profilePic)
 
 
